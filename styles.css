@@ -308,6 +308,7 @@ img{
     padding: 20px;
 }
 
+/* Shop page product boxes */
 .product-box {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -316,7 +317,7 @@ img{
     padding: 20px;
     text-align: center;
 }
-
+/* Shop page product images */
 .product-box img {
     max-width: 100%;
     height: auto;
