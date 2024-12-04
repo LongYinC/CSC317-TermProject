@@ -15,6 +15,45 @@
         <input type="text" placeholder="Search">
         <a href="login.html">Login</a>
     </div>
-   
+    <div class="checkout-container">
+        <div class="user-info">
+            <h2>Checkout Information</h2>
+            <form>
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                
+                <label for="address">Shipping Address</label>
+                <input type="text" id="address" name="address" placeholder="Enter your address" required>
+                
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" placeholder="Enter your city" required>
+                
+                <label for="state">State</label>
+                <select id="state" name="state" required>
+                    <option value="">Select your state</option>
+                    <option value="CA">California</option>
+                    <option value="TX">Texas</option>
+                    <option value="NY">New York</option>
+                    <!-- Add more states as needed -->
+                </select>
+                
+                <label for="zip">ZIP Code</label>
+                <input type="text" id="zip" name="zip" placeholder="Enter your ZIP code" required>
+            </form>
+        </div>
+        <div class="price-summary">
+            <h2>Order Summary</h2>
+            <div class="price-details">
+                <p><span>Subtotal:</span> <span>$99.99</span></p>
+                <p><span>Shipping:</span> <span>$5.00</span></p>
+                <p><span>Tax:</span> <span>$7.20</span></p>
+                <p class="total"><span>Total:</span> <span>$112.19</span></p>
+            </div>
+            <a href="#" class="checkout-button">Complete Purchase</a>
+        </div>
+    </div>
 </body>
 </html>

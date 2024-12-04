@@ -225,5 +225,64 @@ img{
     background-color: #0056b3;
 }
 
+.checkout-container {
+    margin-left: 300px;
+    display: flex;
+    width: 80%;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 1000px;
+}
+.user-info {
+    flex: 2;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+.user-info h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+.user-info form {
+    display: flex;
+    flex-direction: column;
+}
+.user-info label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.user-info input,
+.user-info select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.price-summary {
+    flex: 1;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+.price-summary h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+.price-details {
+    margin-bottom: 20px;
+}
+.price-details p {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 18px;
+}
+.price-summary .total {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
 
 
