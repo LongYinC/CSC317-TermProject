@@ -283,6 +283,81 @@ img{
     font-size: 20px;
 }
 
+/* Style the Shop */
+.shop-header {
+    text-align: center;
+    padding: 40px;
+    background-color: #f4f4f4;
+}
+
+.shop-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.shop-header p {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-box {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.product-box img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.product-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 10px 0;
+}
+
+.product-description {
+    font-size: 1rem;
+    color: #666;
+    margin: 10px 0;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    color: #000;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.buy-button {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.buy-button:hover {
+    background-color: #555;
+}
+
 
 
 
