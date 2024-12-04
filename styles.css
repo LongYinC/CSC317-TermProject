@@ -142,5 +142,39 @@ body pre{
     text-decoration: underline;
 }
 
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+.hero {
+    background-image: url("resources/cscstudio.png");
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+.cta-button {
+    background-color: white;
+    color: #333;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 
 
