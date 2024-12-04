@@ -35,6 +35,13 @@
     margin-top: 30px;
     margin-right: 100px;
     font-size: 17px;
+    color: white;
+    background-color: black;
+}
+
+#navbar a:first-child{
+    font-size: 35px;
+    margin-top: 10px;
 }
 
 #navbar a:last-child{
