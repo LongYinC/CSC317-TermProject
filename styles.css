@@ -1,13 +1,14 @@
 
 
-
+body{
+    font-family: Inter, sans-serif;
+}
 
 #navbar{
     position: sticky;
     top: 0;
     overflow: hidden;
     background-color: white;
-    font-family: "Inter", sans-serif;
 }
 
 #navbar a{
