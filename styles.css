@@ -7,10 +7,10 @@
     top: 0;
     overflow: hidden;
     background-color: white;
+    font-family: "Inter", sans-serif;
 }
 
 #navbar a{
-    font-family: "Inter", sans-serif;
     font-size: 20px;
     font-weight: bold;
     float: left;
@@ -55,7 +55,7 @@ input[type="text"]::placeholder{
 
 #navbar a:last-child{
     float: right;
-    margin-right: -200px;
+    margin-right: -300px;
 }
 
 
