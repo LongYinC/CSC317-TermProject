@@ -2,7 +2,7 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 // Connect to or create the database
-const db = new sqlite3.Database(path.join(__dirname, 'ecommerce.db'), (err) => {
+const db = new sqlite3.Database(path.join(__dirname, '../ecommerce.db'), (err) => {
     if (err) {
         console.error('Failed to connect to the database:', err.message);
     } else {
@@ -10,7 +10,7 @@ const db = new sqlite3.Database(path.join(__dirname, 'ecommerce.db'), (err) => {
     }
 });
 
-// Table is created
+// Create tables
 db.serialize(() => {
     // Users table
     db.run(`
@@ -19,20 +19,17 @@ db.serialize(() => {
             username TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL
         )
-    `, (err) => {
-        if (err) console.error('Error creating users table:', err.message);
-    });
+    `);
 
     // Items table
     db.run(`
         CREATE TABLE IF NOT EXISTS items (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
+            description TEXT,
             price DECIMAL(10, 2) NOT NULL,
         )
-    `, (err) => {
-        if (err) console.error('Error creating items table:', err.message);
-    });
+    `);
 
     // Carts table
     db.run(`
@@ -44,8 +41,9 @@ db.serialize(() => {
             FOREIGN KEY (user_id) REFERENCES users (id),
             FOREIGN KEY (item_id) REFERENCES items (id)
         )
-    `, (err) => {
-        if (err) console.error('Error creating carts table:', err.message);
-    });
+    `);
 });
+
+module.exports = db;
+
 
