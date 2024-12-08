@@ -1,1 +1,51 @@
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+
+// Connect to or create the database
+const db = new sqlite3.Database(path.join(__dirname, 'ecommerce.db'), (err) => {
+    if (err) {
+        console.error('Failed to connect to the database:', err.message);
+    } else {
+        console.log('Connected to SQLite database.');
+    }
+});
+
+// Table is created
+db.serialize(() => {
+    // Users table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL
+        )
+    `, (err) => {
+        if (err) console.error('Error creating users table:', err.message);
+    });
+
+    // Items table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS items (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            price DECIMAL(10, 2) NOT NULL,
+        )
+    `, (err) => {
+        if (err) console.error('Error creating items table:', err.message);
+    });
+
+    // Carts table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS carts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            item_id INTEGER NOT NULL,
+            quantity INTEGER NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users (id),
+            FOREIGN KEY (item_id) REFERENCES items (id)
+        )
+    `, (err) => {
+        if (err) console.error('Error creating carts table:', err.message);
+    });
+});
 
