@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
             if (err) {
                 return res.status(500).json({ error: 'Failed to register user.' });
             }
-            res.redirect('/shop.html'); // Redirect on successful registration
+            res.redirect('/login.html'); // Redirect on successful registration
         });
     } catch (err) {
         console.error('Hashing error:', err);
