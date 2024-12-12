@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/', (req, res) => {
     const { userId, itemId, quantity } = req.body;
     db.run(`
-        INSERT INTO carts (user_id, item_id, quantity) 
+        INSERT INTO carts (user_id, item_id, quantity)
         VALUES (?, ?, ?)
     `, [userId, itemId, quantity], function (err) {
         if (err) {
@@ -20,9 +20,9 @@ router.post('/', (req, res) => {
 router.get('/:userId', (req, res) => {
     const { userId } = req.params;
     db.all(`
-        SELECT items.name, items.price, carts.quantity 
+        SELECT items.name, items.price, carts.quantity
         FROM carts
-        INNER JOIN items ON carts.item_id = items.id
+                 INNER JOIN items ON carts.item_id = items.id
         WHERE carts.user_id = ?
     `, [userId], (err, rows) => {
         if (err) {
@@ -33,3 +33,4 @@ router.get('/:userId', (req, res) => {
 });
 
 module.exports = router;
+
