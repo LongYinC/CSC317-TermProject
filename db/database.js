@@ -1,5 +1,7 @@
+c// database.js
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const bcrypt = require('bcrypt'); // Secure passwords
 
 // Connect to or create the database
 const db = new sqlite3.Database(path.join(__dirname, '../ecommerce.db'), (err) => {
@@ -27,8 +29,8 @@ db.serialize(() => {
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             description TEXT,
-            price DECIMAL(10, 2) NOT NULL,
-        )
+            price DECIMAL(10, 2) NOT NULL
+            )
     `);
 
     // Carts table
@@ -40,7 +42,7 @@ db.serialize(() => {
             quantity INTEGER NOT NULL,
             FOREIGN KEY (user_id) REFERENCES users (id),
             FOREIGN KEY (item_id) REFERENCES items (id)
-        )
+            )
     `);
 });
 
