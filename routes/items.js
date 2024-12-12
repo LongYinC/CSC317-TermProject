@@ -1,14 +1,13 @@
-// items.js
 const express = require('express');
 const db = require('../db/database');
 const router = express.Router();
 
 // Add a new item
 router.post('/', (req, res) => {
-    const { name, description, price } = req.body;
+    const { name, description, price} = req.body;
     db.run(`
         INSERT INTO items (name, description, price) 
-        VALUES (?, ?, ?)
+        VALUES (?, ?, ?, ?)
     `, [name, description, price], function (err) {
         if (err) {
             return res.status(500).json({ error: 'Failed to add item.' });
