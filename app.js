@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public/views')));
 
 // Routes
 app.use('/users', userRoutes);
@@ -32,15 +31,15 @@ app.use('/cart', cartRoutes);
 
 // Serve the root index.html
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/views', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Global Error Handling Middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Something went wrong!' });
+// Product
+app.get('/product', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/product/product.html'));
 });
 
+// Check if user is logged in
 app.get('/isLoggedIn', (req, res) => {
     const loggedIn = req.session && req.session.user ? true : false;
     res.json({ loggedIn });
@@ -56,8 +55,16 @@ app.get('/logout', (req, res) => {
     });
 });
 
+// Global Error Handling Middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Something went wrong!' });
+});
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
