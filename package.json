@@ -4,6 +4,17 @@
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "express-session": "^1.18.1",
     "sqlite3": "^5.1.7"
-  }
+  },
+  "name": "csc317-termproject",
+  "version": "1.0.0",
+  "description": "Our e-commerce website will focus on selling clothes and accessories.   \r We decided to maintain a clean and modern aesthetic for our website.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -13,7 +13,7 @@
         <a href="../views/about.html">About</a>
         <a href="../views/faq.html">FAQ</a>
         <input type="text" placeholder="Search">
-        <a href="../views/login.html">Login</a>
+        <a id="auth-button" href="login.html">Login</a>
     </div> 
     <img src="../resources/sweatshirt1.jpg" style="width:700px; height:700px;">
     <div class="product-details">
@@ -24,5 +24,22 @@
             <a href="../views/checkout.html" class="checkout-button">Check Out</a>
         </div>
     </div>
+    <script>
+        // Check if user is logged in
+        fetch('/isLoggedIn')
+            .then(response => response.json())
+            .then(data => {
+                const authButton = document.getElementById('auth-button');
+                
+                if (data.loggedIn) {
+                    authButton.textContent = 'Logout';
+                    authButton.href = '/logout';  // Redirect to the logout route
+                } else {
+                    authButton.textContent = 'Login';
+                    authButton.href = 'login.html';  // Redirect to the login page
+                }
+            })
+            .catch(error => console.error('Error checking login status:', error));
+    </script>
 </body>
 </html> 

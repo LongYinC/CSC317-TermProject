@@ -1,7 +1,9 @@
 const express = require('express');
 const db = require('../db/database');
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 const router = express.Router();
+
 
 // Register a new user
 router.post('/register', async (req, res) => {
@@ -45,10 +47,16 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials.' });
         }
 
-        // Redirect to shop page after successful login
-        res.redirect('/shop.html');
+        // Store the user in the session after successful login
+        req.session.user = user;  // Save user data to session
+
+        // Redirect to the shop page or return a response indicating success
+        res.redirect('/shop.html'); // Change this to where you want to redirect after login
     });
 });
+
+
+
 
 module.exports = router;
 
