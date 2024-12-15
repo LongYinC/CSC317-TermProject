@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/views')));
 
 // Routes
 app.use('/users', userRoutes);
@@ -31,7 +32,7 @@ app.use('/cart', cartRoutes);
 
 // Serve the root index.html
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public/views', 'index.html'));
 });
 
 // Product
