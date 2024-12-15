@@ -1,3 +1,4 @@
+// Database
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const bcrypt = require('bcrypt'); // Secure passwords
@@ -35,13 +36,13 @@ db.serialize(() => {
     // Carts table
     db.run(`
         CREATE TABLE IF NOT EXISTS carts (
-                                             id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                             user_id INTEGER NOT NULL,
-                                             item_id INTEGER NOT NULL,
-                                             quantity INTEGER NOT NULL,
-                                             FOREIGN KEY (user_id) REFERENCES users (id),
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            item_id INTEGER NOT NULL,
+            quantity INTEGER NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES users (id),
             FOREIGN KEY (item_id) REFERENCES items (id)
-            )
+        )
     `);
 });
 
