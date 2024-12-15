@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,66 +8,66 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="navbar">
-        <a href="index.html">CSC Studio</a>
-        <a href="shop.html">Shop</a>
-        <a href="about.html">About</a>
-        <a href="faq.html">FAQ</a>
-        <input type="text" placeholder="Search">
-        <a id="auth-button" href="login.html">Login</a>
-    </div>  
-    <h1>About Us - CSC Studio</h1> 
-    <pre> 
-    Welcome to CSC Studio, your destination for bold, modern fashion that speaks to individuality and creativity. 
-        
-    At CSC Studio, we believe that every piece of clothing should be a canvas for self-expression, 
-        
+<div id="navbar">
+    <a href="index.html">CSC Studio</a>
+    <a href="shop.html">Shop</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <input type="text" placeholder="Search">
+    <a id="auth-button" href="login.html">Login</a>
+</div>
+<h1>About Us - CSC Studio</h1>
+<pre>
+    Welcome to CSC Studio, your destination for bold, modern fashion that speaks to individuality and creativity.
+
+    At CSC Studio, we believe that every piece of clothing should be a canvas for self-expression,
+
     helping you stand out and feel your best.
 
-    Our collections are inspired by a fusion of contemporary design and timeless style, 
-        
-    creating versatile pieces that transition effortlessly from casual to chic. 
-        
-    Whether you're seeking refined essentials or daring statement items, 
-        
+    Our collections are inspired by a fusion of contemporary design and timeless style,
+
+    creating versatile pieces that transition effortlessly from casual to chic.
+
+    Whether you're seeking refined essentials or daring statement items,
+
     CSC Studio is here to redefine your wardrobe with fresh perspectives and thoughtful craftsmanship.
-        
-    More than just a clothing store, CSC Studio is a creative space where fashion and innovation come together. 
-        
-    We prioritize quality, sustainability, and ethical practices in every piece we produce, 
-        
+
+    More than just a clothing store, CSC Studio is a creative space where fashion and innovation come together.
+
+    We prioritize quality, sustainability, and ethical practices in every piece we produce,
+
     ensuring that looking good doesn’t come at the cost of the planet.
-        
-    The “CSC” in CSC Studio stands for Confidence, Style, and Creation—the core values that guide everything we do. 
-        
-    Our studio is a place where artistry and fashion converge, 
-    
+
+    The “CSC” in CSC Studio stands for Confidence, Style, and Creation—the core values that guide everything we do.
+
+    Our studio is a place where artistry and fashion converge,
+
     celebrating the individuality of our customers and our community.
-        
+
     Join us at CSC Studio, and discover clothing that inspires, empowers, and elevates your style.
-        
+
     With love and creativity,
     The CSC Studio Team- Long Yin Choy, Julina Luna, Nathaniel Moreno
     </pre>
-    <footer>
-        <p>&copy; 2024 CSC Studio. All rights reserved.</p>
-    </footer> 
-    <script>
-        // Check if user is logged in
-        fetch('/isLoggedIn')
-            .then(response => response.json())
-            .then(data => {
-                const authButton = document.getElementById('auth-button');
-                
-                if (data.loggedIn) {
-                    authButton.textContent = 'Logout';
-                    authButton.href = '/logout';  // Redirect to the logout route
-                } else {
-                    authButton.textContent = 'Login';
-                    authButton.href = 'login.html';  // Redirect to the login page
-                }
-            })
-            .catch(error => console.error('Error checking login status:', error));
-    </script>
+<footer>
+    <p>&copy; 2024 CSC Studio. All rights reserved.</p>
+</footer>
+<script>
+    // Check if user is logged in
+    fetch('/isLoggedIn')
+        .then(response => response.json())
+        .then(data => {
+            const authButton = document.getElementById('auth-button');
+
+            if (data.loggedIn) {
+                authButton.textContent = 'Logout';
+                authButton.href = '/logout';  // Redirect to the logout route
+            } else {
+                authButton.textContent = 'Login';
+                authButton.href = 'login.html';  // Redirect to the login page
+            }
+        })
+        .catch(error => console.error('Error checking login status:', error));
+</script>
 </body>
 </html>

@@ -7,43 +7,44 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  </head>
-    <title>Document</title>
+</head>
+<title>Document</title>
 </head>
 <body>
-    <div id="navbar">
-        <a href="index.html">CSC Studio</a>
-        <a href="shop.html">Shop</a>
-        <a href="about.html">About</a>
-        <a href="faq.html">FAQ</a>
-        <input type="text" placeholder="Search">
-        <a id="auth-button" href="login.html">Login</a>
-    </div>   
-    <section class="hero">
-        <h1>Modern. Comfortable. Unique.</h1>
-        <p>Discover your style with CSC Studio's latest collection</p>
-        <a href="shop.html" class="cta-button">Shop Now</a>
-    </section>
-    <footer>
-        <p>&copy; 2024 CSC Studio. All rights reserved.</p>
-    </footer>
+<div id="navbar">
+    <a href="index.html">CSC Studio</a>
+    <a href="shop.html">Shop</a>
+    <a href="about.html">About</a>
+    <a href="faq.html">FAQ</a>
+    <a href="checkout.html">Checkout</a>
+    <input type="text" placeholder="Search">
+    <a id="auth-button" href="login.html">Login</a>
+</div>
+<section class="hero">
+    <h1>Modern. Comfortable. Unique.</h1>
+    <p>Discover your style with CSC Studio's latest collection</p>
+    <a href="shop.html" class="cta-button">Shop Now</a>
+</section>
+<footer>
+    <p>&copy; 2024 CSC Studio. All rights reserved.</p>
+</footer>
 
-    <script>
-        // Check if user is logged in
-        fetch('/isLoggedIn')
-            .then(response => response.json())
-            .then(data => {
-                const authButton = document.getElementById('auth-button');
-                
-                if (data.loggedIn) {
-                    authButton.textContent = 'Logout';
-                    authButton.href = '/logout';  // Redirect to the logout route
-                } else {
-                    authButton.textContent = 'Login';
-                    authButton.href = 'login.html';  // Redirect to the login page
-                }
-            })
-            .catch(error => console.error('Error checking login status:', error));
-    </script>
+<script>
+    // Check if user is logged in
+    fetch('/isLoggedIn')
+        .then(response => response.json())
+        .then(data => {
+            const authButton = document.getElementById('auth-button');
+
+            if (data.loggedIn) {
+                authButton.textContent = 'Logout';
+                authButton.href = '/logout';  // Redirect to the logout route
+            } else {
+                authButton.textContent = 'Login';
+                authButton.href = 'login.html';  // Redirect to the login page
+            }
+        })
+        .catch(error => console.error('Error checking login status:', error));
+</script>
 </body>
 </html>

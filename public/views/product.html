@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../styles.css" rel="stylesheet">
+  <title>Product Page</title>
+</head>
+<body>
+<div id="navbar">
+  <a href="index.html">CSC Studio</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
+  <input type="text" placeholder="Search">
+  <a href="login.html">Login</a>
+</div>
+
+<div class="product">
+  <img src="tshirt.jpg" alt="T-Shirt">
+  <h1>T-Shirt</h1>
+  <p>$99.99</p>
+  <button id="add-to-cart-button" data-item-id="101">Add to Cart</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const addToCartButton = document.getElementById('add-to-cart-button');
+
+    // Fetch user session data
+    fetch('/isLoggedIn')
+            .then(response => response.json())
+            .then(data => {
+              if (!data.loggedIn) {
+                alert('Please log in to add items to your cart.');
+                window.location.href = 'login.html';
+                return;
+              }
+
+              // Attach event listener to Add to Cart button
+              addToCartButton.addEventListener('click', () => {
+                const userId = data.userId; // Use session userId
+                const itemId = addToCartButton.getAttribute('data-item-id'); // Get itemId from button
+                const quantity = 1; // Default quantity for now
+
+                // Make POST request to /cart endpoint
+                fetch('/cart', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ userId, itemId, quantity }),
+                })
+                        .then(response => response.json())
+                        .then(data => {
+                          if (data.message) {
+                            alert('Item added to cart successfully!');
+                          } else {
+                            alert('Failed to add item to cart.');
+                          }
+                          console.log('Response:', data);
+                        })
+                        .catch(error => console.error('Error:', error));
+              });
+            })
+            .catch(error => console.error('Error fetching user session:', error));
+  });
+</script>
+</body>
+</html>
+
