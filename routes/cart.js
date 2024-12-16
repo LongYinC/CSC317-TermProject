@@ -10,18 +10,20 @@ router.post('/', (req, res) => {
 
     console.log('Add to Cart Request:', { userId, itemId, quantity }); // Debug log
 
+    if (!userId) {
+        console.error('Error: userId is undefined.');
+        return res.status(400).json({ error: 'User ID is required.' });
+    }
+
     db.run(
-        `
-            INSERT INTO carts (user_id, item_id, quantity)
-            VALUES (?, ?, ?)
-        `,
+        `INSERT INTO carts (user_id, item_id, quantity) VALUES (?, ?, ?)`,
         [userId, itemId, quantity],
         function (err) {
             if (err) {
-                console.error('Database Error (Add Item):', err.message); // Debug log
+                console.error('Database Error (Add Item):', err.message);
                 return res.status(500).json({ error: 'Failed to add item to cart.' });
             }
-            console.log('Item added to cart with ID:', this.lastID); // Debug log
+            console.log('Item added to cart with ID:', this.lastID);
             res.json({ message: 'Item added to cart.', cartId: this.lastID });
         }
     );
