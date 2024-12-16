@@ -6,41 +6,23 @@ const router = express.Router();
 router.post('/', (req, res) => {
     const { username, itemName, quantity } = req.body;
 
-    console.log('Add to Cart Request:', { username, itemName, quantity }); // Debug log
+    console.log('Add to Cart Request:', { userId, itemId, quantity }); // Debug log
 
-    // Look up the userId based on username
-    db.get(`
-        SELECT id FROM users WHERE username = ?
-    `, [username], (err, user) => {
-        if (err || !user) {
-            return res.status(500).json({ error: 'Failed to find user.' });
-        }
-
-        // Look up the itemId based on itemName
-        db.get(`
-            SELECT id FROM items WHERE name = ?
-        `, [itemName], (err, item) => {
-            if (err || !item) {
-                return res.status(500).json({ error: 'Failed to find item.' });
+    db.run(
+        `
+            INSERT INTO carts (user_id, item_id, quantity)
+            VALUES (?, ?, ?)
+        `,
+        [userId, itemId, quantity],
+        function (err) {
+            if (err) {
+                console.error('Database Error (Add Item):', err.message); // Debug log
+                return res.status(500).json({ error: 'Failed to add item to cart.' });
             }
-
-            const userId = user.id;
-            const itemId = item.id;
-
-            // Insert the item into the cart
-            db.run(`
-                INSERT INTO carts (user_id, item_id, quantity)
-                VALUES (?, ?, ?)
-            `, [userId, itemId, quantity], function (err) {
-                if (err) {
-                    console.error('Database Error (Add Item):', err.message); // Debug log
-                    return res.status(500).json({ error: 'Failed to add item to cart.' });
-                }
-                console.log('Item added to cart with ID:', this.lastID); // Debug log
-                res.json({ message: 'Item added to cart.', cartId: this.lastID });
-            });
-        });
-    });
+            console.log('Item added to cart with ID:', this.lastID); // Debug log
+            res.json({ message: 'Item added to cart.', cartId: this.lastID });
+        }
+    );
 });
 
 // Update item quantity in the cart

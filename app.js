@@ -41,12 +41,8 @@ app.get('/product', (req, res) => {
 });
 
 app.get('/isLoggedIn', (req, res) => {
-    if (req.session.user) {
-        // Send back the username from the session
-        res.json({ loggedIn: true, username: req.session.user.username });
-    } else {
-        res.json({ loggedIn: false });
-    }
+    const loggedIn = req.session && req.session.user ? true : false;
+    res.json({ loggedIn });
 });
 
 // Logout route
