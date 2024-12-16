@@ -46,8 +46,8 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials.' });
         }
 
-        // Store the user in the session after successful login
-        req.session.user = user;  // Save user data to session
+        // Save the user object in the session
+        req.session.user = user;
 
         // Return the username in the response to the frontend
         res.redirect('/shop.html');
