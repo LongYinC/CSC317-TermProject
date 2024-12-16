@@ -42,10 +42,13 @@ app.get('/product', (req, res) => {
 
 // Check if user is logged in
 app.get('/isLoggedIn', (req, res) => {
-    const loggedIn = req.session && req.session.user ? true : false;
-    res.json({ loggedIn });
+    if (req.session && req.session.user) {
+        console.log('Session User:', req.session.user); // Debug log
+        res.json({ loggedIn: true, userId: req.session.user.id });
+    } else {
+        res.json({ loggedIn: false });
+    }
 });
-
 // Logout route
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
