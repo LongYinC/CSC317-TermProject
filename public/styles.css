@@ -356,6 +356,13 @@ img{
     margin-top: 20px;
 }
 
+#button{
+    display: flex;
+    justify-content: space-between; /* Ensures even spacing between buttons */
+    gap: 10px; /* Adds space between the buttons */
+    margin-top: 20px;
+}
+
 .add-to-cart-button,
 .checkout-button {
     margin-top: 580px;

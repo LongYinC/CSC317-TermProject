@@ -32,8 +32,8 @@
             .then(response => response.json())
             .then(data => {
               if (!data.loggedIn) {
-                alert('Please log in to add items to your cart.');
                 window.location.href = 'login.html';
+                alert('Please log in to add items to your cart.');
                 return;
               }
 

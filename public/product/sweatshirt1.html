@@ -20,7 +20,7 @@
         <h1 class="product-title">Sweatshirt</h1>
         <p class="product-price">$99.99</p>
         <div id="button">
-            <a href="#" class="add-to-cart-button">Add to Cart</a>
+            <a href="#" id="add-to-cart-button" class="add-to-cart-button" data-item-name="Sweat Shirt">Add to Cart</a>
             <a href="../views/checkout.html" class="checkout-button">Check Out</a>
         </div>
     </div>
@@ -34,6 +34,8 @@
                 if (data.loggedIn) {
                     authButton.textContent = 'Logout';
                     authButton.href = '/logout';  // Redirect to the logout route
+                    // Store the username in session storage
+                    sessionStorage.setItem('username', data.username);  // Save the username to sessionStorage
                 } else {
                     authButton.textContent = 'Login';
                     authButton.href = 'login.html';  // Redirect to the login page
@@ -41,5 +43,45 @@
             })
             .catch(error => console.error('Error checking login status:', error));
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const addToCartButton = document.getElementById('add-to-cart-button');
+
+        // Attach event listener to Add to Cart button
+        addToCartButton.addEventListener('click', () => {
+            // Get the username from session storage
+            const username = sessionStorage.getItem('username');
+
+            if (username) {
+                const itemName = addToCartButton.getAttribute('data-item-name'); // Get item name
+                const quantity = 1; // Default quantity for now
+
+                // Make POST request to /cart endpoint
+                fetch('/cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, itemName, quantity }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.message) {
+                            alert('Item added to cart successfully!');
+                        } else {
+                            alert('Failed to add item to cart.');
+                        }
+                        console.log('Response:', data);
+                    })
+                    .catch(error => console.error('Error adding item to cart:', error));
+            } else {
+                // If user is not logged in, show an alert or redirect to login page
+                alert('You must be logged in to add items to your cart.');
+                window.location.href = 'login.html'; // Redirect to login page
+            }
+        });
+    });
+</script>
 </body>
 </html> 

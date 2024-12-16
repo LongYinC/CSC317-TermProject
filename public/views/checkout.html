@@ -13,8 +13,9 @@
     <a href="about.html">About</a>
     <a href="faq.html">FAQ</a>
     <input type="text" placeholder="Search">
-    <a id="auth-button" href="login.html">Login</a>
+    <a href="index.html">Home</a>
 </div>
+
 <section class="checkout">
     <h1>Your Cart</h1>
     <div id="cart-items"></div>
@@ -23,89 +24,89 @@
         <button id="checkout-button">Proceed to Payment</button>
     </div>
 </section>
+
 <footer>
     <p>&copy; 2024 CSC Studio. All rights reserved.</p>
 </footer>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // Check if the user is logged in
         fetch('/isLoggedIn')
             .then(response => response.json())
             .then(data => {
                 if (!data.loggedIn) {
-                    window.location.href = 'login.html';
+                    window.location.href = 'login.html'; // Redirect to login if not logged in
+                    alert("Not logged in");
                 } else {
-                    fetch('/isLoggedIn')
-                        .then(response => response.json())
-                        .then(data => {
-                            if (!data.loggedIn) {
-                                window.location.href = 'login.html';
-                            } else {
-                                const userId = data.userId;
-                                fetchCart(userId);
-                            }
-                        });
-
+                    // User is logged in, get username from the session
+                    const username = data.username;
+                    fetchCart(username); // Fetch the cart for the logged-in user
                 }
             });
 
-        function fetchCart(userId) {
-            fetch(`/cart/checkout/${userId}`)
+        function fetchCart(username) {
+            // Fetch the user's cart items from the backend
+            fetch(`/cart/checkout/${username}`)
                 .then(response => response.json())
                 .then(data => {
                     const cartItemsDiv = document.getElementById('cart-items');
                     const grandTotalSpan = document.getElementById('grand-total');
-                    cartItemsDiv.innerHTML = '';
+                    cartItemsDiv.innerHTML = '';  // Clear previous cart items
 
-                    data.cartItems.forEach(item => {
-                        const itemDiv = document.createElement('div');
-                        itemDiv.className = 'cart-item';
+                    if (data.cartItems.length === 0) {
+                        cartItemsDiv.innerHTML = '<p>Your cart is empty!</p>';
+                    } else {
+                        data.cartItems.forEach(item => {
+                            const itemDiv = document.createElement('div');
+                            itemDiv.className = 'cart-item';
 
-                        itemDiv.innerHTML = `
-                            <p><strong>${item.name}</strong></p>
-                            <p>Price: $${item.price.toFixed(2)}</p>
-                            <p>Quantity: <input type="number" class="quantity-input"
-                                data-item-id="${item.itemId}" value="${item.quantity}" min="1"></p>
-                            <p>Total: $<span class="item-total">${item.totalPrice.toFixed(2)}</span></p>
-                            <button class="remove-button" data-item-id="${item.itemId}">Remove</button>
-                        `;
-                        cartItemsDiv.appendChild(itemDiv);
-                    });
+                            itemDiv.innerHTML = `
+                                <p><strong>${item.name}</strong></p>
+                                <p>Price: $${item.price.toFixed(2)}</p>
+                                <p>Quantity: <input type="number" class="quantity-input"
+                                    data-item-name="${item.name}" value="${item.quantity}" min="1"></p>
+                                <p>Total: $<span class="item-total">${item.totalPrice.toFixed(2)}</span></p>
+                                <button class="remove-button" data-item-name="${item.name}">Remove</button>
+                            `;
+                            cartItemsDiv.appendChild(itemDiv);
+                        });
 
-                    grandTotalSpan.textContent = data.grandTotal.toFixed(2);
+                        grandTotalSpan.textContent = data.grandTotal.toFixed(2);
 
-                    attachEventListeners(userId);
+                        // Attach event listeners for quantity change and item removal
+                        attachEventListeners(username);
+                    }
                 });
         }
 
-        if (data.cartItems.length === 0) {
-            cartItemsDiv.innerHTML = '<p>Your cart is empty!</p>';
-        }
-
-
-        function attachEventListeners(userId) {
+        function attachEventListeners(username) {
+            // Handle quantity change
             document.querySelectorAll('.quantity-input').forEach(input => {
                 input.addEventListener('change', event => {
-                    const itemId = event.target.getAttribute('data-item-id');
+                    const itemName = event.target.getAttribute('data-item-name');
                     const newQuantity = event.target.value;
 
+                    // Update cart with the new quantity
                     fetch('/cart/update', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ userId, itemId, quantity: newQuantity }),
-                    }).then(() => location.reload());
+                        body: JSON.stringify({ username, itemName, quantity: newQuantity }),
+                    }).then(() => location.reload()); // Reload page to show updated cart
                 });
             });
 
+            // Handle item removal
             document.querySelectorAll('.remove-button').forEach(button => {
                 button.addEventListener('click', event => {
-                    const itemId = event.target.getAttribute('data-item-id');
+                    const itemName = event.target.getAttribute('data-item-name');
 
+                    // Remove item from cart
                     fetch('/cart/remove', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ userId, itemId }),
-                    }).then(() => location.reload());
+                        body: JSON.stringify({ username, itemName }),
+                    }).then(() => location.reload()); // Reload page to update cart
                 });
             });
         }
@@ -114,4 +115,3 @@
 
 </body>
 </html>
-

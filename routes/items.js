@@ -26,4 +26,18 @@ router.get('/', (req, res) => {
     });
 });
 
+// Get item by name
+router.get('/name/:name', (req, res) => {
+    const { name } = req.params;
+    db.get(`SELECT * FROM items WHERE name = ?`, [name], (err, row) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to retrieve the item.' });
+        }
+        if (!row) {
+            return res.status(404).json({ error: 'Item not found.' });
+        }
+        res.json(row);
+    });
+});
+
 module.exports = router;

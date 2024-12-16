@@ -30,13 +30,12 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// User login
+// Login route 
 router.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
     db.get(`
-        SELECT * FROM users
-        WHERE username = ?
+        SELECT * FROM users WHERE username = ?
     `, [username], async (err, user) => {
         if (err || !user) {
             return res.status(401).json({ error: 'Invalid credentials.' });
@@ -47,11 +46,11 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ error: 'Invalid credentials.' });
         }
 
-        // Store the user in the session after successful login
-        req.session.user = user;  // Save user data to session
+        // Save the user object in the session
+        req.session.user = user;
 
-        // Redirect to the shop page or return a response indicating success
-        res.redirect('/shop.html'); // Change this to where you want to redirect after login
+        // Return the username in the response to the frontend
+        res.redirect('/shop.html');
     });
 });
 

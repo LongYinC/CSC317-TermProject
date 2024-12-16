@@ -40,10 +40,13 @@ app.get('/product', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/product/product.html'));
 });
 
-// Check if user is logged in
 app.get('/isLoggedIn', (req, res) => {
-    const loggedIn = req.session && req.session.user ? true : false;
-    res.json({ loggedIn });
+    if (req.session.user) {
+        // Send back the username from the session
+        res.json({ loggedIn: true, username: req.session.user.username });
+    } else {
+        res.json({ loggedIn: false });
+    }
 });
 
 // Logout route
